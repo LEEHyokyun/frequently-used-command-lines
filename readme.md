@@ -36,7 +36,6 @@ docker run --name cloud-native-msa-product-mysql -e MYSQL_ROOT_PASSWORD=root -d 
 - 설치
 
 ``
---postrgresql docker 설치
 docker run --name postgres-batch -e POSTGRES_USER=root -e POSTGRES_PASSWORD=1234 -p 5432:5432 -d postgres:latest
 ``
 
@@ -284,4 +283,37 @@ docker push leehyokyun/cloud-native-msa-config-server:1.0
 
 ``
 docker logs user-service
+``
+
+> Docker Jenkins
+
+- Local 환경에서 Volume 별도 지정 없이 테스트를 진행하기 위한 환경 구성
+
+``
+docker run -p 8080:8080 -p 50000:50000 --name cloud-native-cicd-jenkins --restart=on-failure jenkins/jenkins:lts-jdk21
+``
+
+- docker 컨테이너 환경에서 jenkins 내부 환경으로 접속
+
+``
+docker exec -it cloud-native-cicd-jenkins bash
+``
+
+- 컨테이너 환경 실행 시 비밀번호 확인
+
+``
+docker logs cloud-native-cicd-jenkins
+``
+
+- 내부 환경에서의 jdk 정상 인지 여부 확인
+
+``
+java -version
+echo $JAVA_HOME
+``
+
+- workspace
+
+``
+/var/jenkins_home/workspace/cloud-native-cicd-jenkins-project-1
 ``
