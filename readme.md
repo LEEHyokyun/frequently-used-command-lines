@@ -131,6 +131,14 @@ ID: guest
 PW : guest
 ``
 
+> Docker Redis
+
+- 설치
+
+``
+docker run -d --name cloud-native-msa-redis -o 6379:6379 redis:7.4
+``
+
 > Docker Kafka
 
 - 설치
@@ -288,6 +296,8 @@ docker logs user-service
 > Docker Jenkins
 
 - Local 환경에서 Volume 별도 지정 없이 테스트를 진행하기 위한 환경 구성
+  - 8080 : jenkins 접속을 위한 포트
+  - 50000 : jenkins job 실행을 위한 agent 포트
 
 ``
 docker run -p 8080:8080 -p 50000:50000 --name cloud-native-cicd-jenkins --restart=on-failure jenkins/jenkins:lts-jdk21
