@@ -386,6 +386,29 @@ sed -i '/<\/tomcat-users>/i\<role rolename="manager-gui"/>\n<user username="admi
 cat tomcat-users.xml
 ``
 
+- Manager UI 설치(tar(binary) 압축 형태로 다운로드 및 압축 풀기, manager UI 환경 구성)
+
+``
+wget https://archive.apache.org/dist/tomcat/tomcat-9/v9.0.80/bin/apache-tomcat-9.0.80.tar.gz
+``
+</br>
+``
+tar -xzf apache-tomcat-9.0.80.tar.gz
+``
+</br>
+``
+cp -r apache-tomcat-9.0.80/webapps/manager .
+``
+</br>
+``
+cp -r apache-tomcat-9.0.80/webapps/host-manager .
+``
+
+- context.xml를 통한 외부 접근 권한 수정
+
+``
+vi /usr/local/tomcat/webapps/manager/META-INF/context.xml
+``
 
 > ngrok
 
@@ -398,7 +421,7 @@ ngrok http 8080 (*Jenkins)
 
 > etc
 
-- 도커 명령어 실행을 위한 패키지 업데이트 및 docker 라이브러리 추가
+- 도커 명령어 실행을 위한 패키지(최신 라이브러리) 업데이트 및 docker 라이브러리 추가
 
 ``
 apt-get update
