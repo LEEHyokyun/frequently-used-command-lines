@@ -366,6 +366,27 @@ echo $JAVA_HOME
 docker run -d -p 8081:8080 --name cloud-native-cicd-tomcat tomcat:9.0
 ``
 
+- manager 권한 계정 추가를 위한 과정
+
+- tomcat-user.xml 파일 확인 
+
+``
+cd /usr/local/tomcat/conf
+``
+
+- 계정 추가
+
+``
+sed -i '/<\/tomcat-users>/i\<role rolename="manager-gui"/>\n<user username="admin" password="admin" roles="manager-gui"/>' tomcat-users.xml
+``
+
+- 변경 내용 확인
+
+``
+cat tomcat-users.xml
+``
+
+
 > ngrok
 
 - 현재 실행 중인 application의 포트를 외부에서 접근할 수 있는 uri로 변경
