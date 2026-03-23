@@ -31,6 +31,24 @@ docker run --name cloud-native-msa-order-mysql -e MYSQL_ROOT_PASSWORD=root -d -p
 docker run --name cloud-native-msa-product-mysql -e MYSQL_ROOT_PASSWORD=root -d -p 3308:3306 mysql:8.0.42
 ``
 
+> Docker Volume 확인
+
+- docker volume list
+
+``
+docker volume ls
+``
+
+- docker volume 세부내역 조회(host 등)
+
+``
+docker volume inspect jenkins-tomcat-infra_jenkins_home
+``
+</br>
+``
+docker volume inspect jenkins-tomcat-infra_tomcat_webapps
+``
+
 > Docker Postgres
 
 - 설치
@@ -355,4 +373,15 @@ docker run -d -p 8081:8080 --name cloud-native-cicd-tomcat tomcat:9.0
 
 ``
 ngrok http 8080 (*Jenkins)
+``
+
+> etc
+
+- 도커 명령어 실행을 위한 패키지 업데이트 및 docker 라이브러리 추가
+
+``
+apt-get update
+``
+``
+apt-get install -y docker.io
 ``

@@ -1,0 +1,25 @@
+services:
+  jenkins:
+    image: jenkins/jenkins:lts-jdk21
+    container_name: cloud-native-cicd-jenkins-inInfra
+    user: root                      # 초기 설정은 root로 CLI 권한 처리(*root 권한 획득을 위한 설정, 컨테이너 시작 시 적용)
+    ports:
+      - "8080:8080"
+      - "50000:50000"               # agent 연결용
+    volumes:
+#      - jenkins_home:/var/jenkins_home             # 기본 경로에 project_{named_volume} 형태로 경로 별도 생성됨, 마운트 경로가 대체됨
+      - /var/run/docker.sock:/var/run/docker.sock   # 호스트 Docker 접근
+    restart: unless-stopped
+
+  tomcat:
+    image: tomcat:9.0
+    container_name: cloud-native-cicd-tomcat-inInfra
+    ports:
+      - "8081:8080"  # 컨테이너 내부 8080 -> 호스트 8081
+#    volumes:                                             # 기본 경로에 project_{named_volume} 형태로 경로 별도 생성됨, 마운트 경로가 대체됨
+#      - tomcat_webapps:/usr/local/tomcat/webapps
+    restart: unless-stopped
+
+#volumes:
+#  jenkins_home: # 볼륨 마운트 명시적 지정(compose 명 기반이 아닌 직접 명기)
+#  tomcat_webapps: # 볼륨 마운트 명시적 지정(compose 명 기반이 아닌 직접 명기)
