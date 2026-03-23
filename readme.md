@@ -296,11 +296,17 @@ docker logs user-service
 > Docker Jenkins
 
 - Local 환경에서 Volume 별도 지정 없이 테스트를 진행하기 위한 환경 구성
-  - 8080 : jenkins 접속을 위한 포트
+  - 8080 : jenkins master 실행 및 접속을 위한 포트
   - 50000 : jenkins job 실행을 위한 agent 포트
 
 ``
 docker run -p 8080:8080 -p 50000:50000 --name cloud-native-cicd-jenkins --restart=on-failure jenkins/jenkins:lts-jdk21
+``
+
+- deploy까지 고려하여, 외부 container 환경의 tomcat 인스턴스에 배포(복사)할 경우
+
+``
+docker run -d -p 8080:8080 -p 50000:50000 -v jenkins_home:/var/jenkins_home -v /var/run/docker.sock:/var/run/docker.sock --name cloud-native-cicd-jenkins jenkins/jenkins:lts-jdk21
 ``
 
 - docker 컨테이너 환경에서 jenkins 내부 환경으로 접속
@@ -322,8 +328,31 @@ java -version
 echo $JAVA_HOME
 ``
 
-- workspace
+- workspace(*build/파일 archive 등 확인)
 
 ``
 /var/jenkins_home/workspace/cloud-native-cicd-jenkins-project-1
+``
+
+- build 확인(*jar/war)
+
+``
+/var/jenkins_home/workspace/cloud-native-cicd-jenkins-todeploy-1/build/libs
+``
+
+> Docker Tomcat
+
+- jenkins와 tomcat의 inner port는 동일, 동시 실행 시 host port는 다르게 설정.
+
+``
+docker run -d -p 8081:8080 --name cloud-native-cicd-tomcat tomcat:9.0
+``
+
+> ngrok
+
+- 현재 실행 중인 application의 포트를 외부에서 접근할 수 있는 uri로 변경
+- web hook의 경우 git과 jenkins의 연결이 이루어져야 하므로, jenkins 서버 대상으로 구성 필요.
+
+``
+ngrok http 8080 (*Jenkins)
 ``
