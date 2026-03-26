@@ -445,3 +445,17 @@ apt-get update
 ``
 apt-get install -y docker.io
 ``
+
+- SSH 통신 환경 구축(공개키 생성 및 target server에 공개키 배포)
+
+``
+-- ./ssh 디렉토리에 생성 및 저장
+ssh-keygen
+``
+
+``
+-- 공개키 배포(이것 또한 ./ssh 디렉토리에 배포됨)
+ssh-copy-id root@cloud-native-cicd-ansible-server
+``
+
+※ target server에 ssh 서버가 설치되어있지 않을 경우, SSH 서버 설치 혹은 docker 기반의 통신을 진행.
