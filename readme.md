@@ -410,6 +410,22 @@ cp -r apache-tomcat-9.0.80/webapps/host-manager .
 vi /usr/local/tomcat/webapps/manager/META-INF/context.xml
 ``
 
+> Docker Network
+
+- Network 생성
+
+``
+docker network create cicd-network
+``
+
+- Network 연결(*localhost를 통한 내부적 NAT이 아닌 컨테이너명 기반의 통신)
+
+``
+docker network connect cicd-network jenkins \n
+docker network connect cicd-network ansible \n
+docker network connect cicd-network java-app
+``
+
 > ngrok
 
 - 현재 실행 중인 application의 포트를 외부에서 접근할 수 있는 uri로 변경
