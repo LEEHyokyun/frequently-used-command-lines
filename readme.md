@@ -482,7 +482,7 @@ chown root:docker /var/run/docker.sock
 groups jenkins
 ``
 
-- SSH 통신 환경 구축(공개키 생성 및 target server에 공개키 배포)
+- SSH 통신 origin 환경 구축(공개키 생성 및 target server에 공개키 배포)
 
 ``
 -- ./ssh 디렉토리에 생성 및 저장
@@ -491,7 +491,29 @@ ssh-keygen
 
 ``
 -- 공개키 배포(이것 또한 ./ssh 디렉토리에 배포됨)
-ssh-copy-id root@cloud-native-cicd-ansible-server
+
+``
+
+- SSH 통신을 위한 target 환경 확인
+  - 1차적으로 sshd를 실행한 로그를 확인하고, 실행 이력이 없으면 직접 sshd open 필요
+  - /usr/sbin/sshd start가 아닌 실행까지 확인해야 한다.
+
+``
+ps -ef | grep sshd
+``
+</br>
+``
+/usr/sbin/sshd
+``
+</br>
+```scss
+root        28     1  0 08:16 ?        00:00:00 /usr/sbin/sshd
+```
+
+- 최종 ssh 통신 확인
+
+``
+ssh root@cloud-native-cicd-ansible-server
 ``
 
 ※ target server에 ssh 서버가 설치되어있지 않을 경우, SSH 서버 설치 혹은 docker 기반의 통신을 진행.
