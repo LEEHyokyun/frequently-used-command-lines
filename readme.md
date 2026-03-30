@@ -446,6 +446,13 @@ apt-get update
 apt-get install -y docker.io
 ``
 
+※ 패키지 업데이트 권한 거부 발생 시 root 계정 접속 필요(-u)
+
+``
+docker exec -u root -it cloud-native-cicd-jenkins bash
+``
+
+
 - SSH 통신 환경 구축(공개키 생성 및 target server에 공개키 배포)
 
 ``
