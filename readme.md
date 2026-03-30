@@ -523,4 +523,15 @@ root        28     1  0 08:16 ?        00:00:00 /usr/sbin/sshd
 ssh root@cloud-native-cicd-ansible-server
 ``
 
+※ 호스트 PC에서 ssh 테스트 용 임시계정 생성
+
+``
+net user ansible_test P@ssw0rd! /add
+``
+</br>
+``
+net localgroup administrators ansible_test /add
+``
+
 ※ target server에 ssh 서버가 설치되어있지 않을 경우, SSH 서버 설치 혹은 docker 기반의 통신을 진행.
+
