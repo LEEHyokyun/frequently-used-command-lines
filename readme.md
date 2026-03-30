@@ -483,15 +483,22 @@ groups jenkins
 ``
 
 - SSH 통신 origin 환경 구축(공개키 생성 및 target server에 공개키 배포)
+  - ./ssh 디렉토리에 생성 및 저장
+  - target에 -- 공개키 배포(이것 또한 ./ssh 디렉토리에 배포됨)
+
 
 ``
--- ./ssh 디렉토리에 생성 및 저장
 ssh-keygen
 ``
+</br>
+``
+ssh-copy-id root@cloud-native-cicd-ansible-server
+``
+
+※ SSH 통신 대상의 host 정보가 바뀌었을 경우 origin 측에서 host 정보 업데이트
 
 ``
--- 공개키 배포(이것 또한 ./ssh 디렉토리에 배포됨)
-
+ssh-keygen -f "/var/jenkins_home/.ssh/known_hosts" -R "cloud-native-cicd-ansible-server"
 ``
 
 - SSH 통신을 위한 target 환경 확인
