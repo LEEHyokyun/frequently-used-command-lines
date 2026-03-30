@@ -452,6 +452,35 @@ apt-get install -y docker.io
 docker exec -u root -it cloud-native-cicd-jenkins bash
 ``
 
+- 도커 명령어 실행을 위해서는 docker.sock이라는 인터페이스(socket)가 필요
+
+``
+root@3d99a66c3e4a:/var/run# ls -l /var/run/docker.sock
+``
+</br>
+``
+srw-rw---- 1 root root 0 Mar 30 05:55 /var/run/docker.soc
+``
+
+- 인터페이스가 존재해도 도커를 실행할 수 있는 "도커 그룹"에 등록되어야 함
+
+``
+usermod -aG docker jenkins
+``
+
+- docker.sock을 이용할 수 있는 허용그룹을 root가 아닌 docker group으로 등록해주어야 함
+  - only root > docker
+
+``
+chown root:docker /var/run/docker.sock
+``
+
+- 도커 그룹 등록 후 groups로 확인 필요
+  - jenkins : jenkins docker (도커 그룹으로 표기되어야 함)
+
+``
+groups jenkins
+``
 
 - SSH 통신 환경 구축(공개키 생성 및 target server에 공개키 배포)
 
