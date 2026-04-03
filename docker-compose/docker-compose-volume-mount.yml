@@ -1,0 +1,8 @@
+services:
+  mysql:
+    # for volume mount
+    # source : target, 데이터의 영속화를 위해 호스트 머신 경로로 데이터를 저장하는 것
+    # .sh : 실행, .sql : 테이블 생성 등 컨테이너 환경 측에서 판단하여 데이터를 source 경로에 저장하거나, source 경로의 스크립트를 실행
+    volumes:
+      - mysql-service-data:/var/lib/mysql
+      - ./datasource/init-service.sql:/docker-entrypoint-initdb.d/init.sql
