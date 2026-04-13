@@ -1,0 +1,26 @@
+services:
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:9.1.0
+    container_name: spring-boot-monitoring-elasticsearch
+    environment:
+      - discovery.type=single-node
+      - xpack.security.enabled=false
+      - xpack.security.http.ssl.enabled=false
+      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+    ports:
+      - "9200:9200"
+
+  logstash:
+    image: docker.elastic.co/logstash/logstash:9.1.0
+    container_name: spring-boot-monitoring-logstash
+    volumes:
+      - ./logs:/usr/share/logstash/logs
+      - ./logs/logstash/logstash.conf:/usr/share/logstash/pipeline/logstash.conf
+    ports:
+      - "5044:5044"
+    depends_on:
+      - elasticsearch
+
+#volumes:
+#  jenkins_home: # 볼륨 마운트 명시적 지정(compose 명 기반이 아닌 직접 명기)
+#  tomcat_webapps: # 볼륨 마운트 명시적 지정(compose 명 기반이 아닌 직접 명기)
