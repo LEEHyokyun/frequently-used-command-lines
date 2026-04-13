@@ -21,6 +21,16 @@ services:
     depends_on:
       - elasticsearch
 
+  kibana:
+    image: docker.elastic.co./kibana/kibana:9.1.0
+    container_name: spring-boot-monitoring-kibana
+    ports:
+      - "5601:5601"
+    environment:
+      - ELASTICSEARCH_HOSTS=https://spring-boot-monitoring-elasticsearch:9200
+    depends_on:
+      - elasticsearch
+
 #volumes:
 #  jenkins_home: # 볼륨 마운트 명시적 지정(compose 명 기반이 아닌 직접 명기)
 #  tomcat_webapps: # 볼륨 마운트 명시적 지정(compose 명 기반이 아닌 직접 명기)

@@ -244,6 +244,12 @@ docker compose -p order-dbsync-infra stop
 docker compose -p order-dbsync-infra start
 ``
 
+- compose 삭제
+
+``
+docker compose -p docker-compose-elasticsearch-logstash-infra down
+``
+
 > Docker Zipkin
 
 - Zikpin 설치
