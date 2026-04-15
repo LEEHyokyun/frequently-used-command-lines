@@ -154,7 +154,7 @@ PW : guest
 - 설치
 
 ``
-docker run -d --name cloud-native-msa-redis -o 6379:6379 redis:7.4
+docker run -d --name cloud-native-msa-redis -p 6379:6379 redis:7.4
 ``
 
 > Docker Kafka
