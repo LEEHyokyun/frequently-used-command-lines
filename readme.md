@@ -174,8 +174,7 @@ docker exec --workdir /opt/kafka/bin/ -it cloud-native-msa-kafka sh
 - kafka 내부 토픽 생성(*토픽 명명 시 내부 도메인 : 이벤트 행위)
  
 ``
-./kafka-topics.sh --bootstrap-server localhost:9092 --create --topic order-dbsync --re
-plication-factor 1 --partitions 3
+./kafka-topics.sh --bootstrap-server localhost:9092 --create --topic order-dbsync --replication-factor 1 --partitions 3
 ``
 
 - kafka 내부 토픽 확인
