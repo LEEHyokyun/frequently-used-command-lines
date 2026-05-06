@@ -195,7 +195,7 @@ docker exec --workdir /opt/kafka/bin/ -it cloud-native-msa-kafka sh
 ./kafka-console-producer.sh --bootstrap-server localhost:9092 --topic order-dbsync
 ``
 
-- kafka 메시지 소비 테스트
+- kafka 메시지 소비 테스트(특정 토픽 메시지 보관 내역 및 소비 여부 등 테스트)
 
 ``
 ./kafka-console-consumer.sh --bootstrap-server localhost:9092 --topic order-dbsync --from-beginning
