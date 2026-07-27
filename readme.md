@@ -440,6 +440,71 @@ docker network connect cicd-network java-app
 ngrok http 8080 (*Jenkins)
 ``
 
+> docker swarm
+
+- K8S의 환경 구성을 대체하기 위한 멀티 도커 엔진(DinD Docker Engine) 환경 구성
+
+``
+docker run -d --privileged --name docker-swarm-manager --hostname manager --network docker-swarm-network docker:dind
+``
+``
+docker run -d --privileged --name docker-swarm-worker1 --hostname worker1 --network docker-swarm-network docker:dind
+``
+
+- docker 컨테이너의 실행 세부 정보(정상적인 실행 여부) 확인
+
+``
+docker exec docker-swarm-manager docker info
+``
+
+- dind 환경 접속
+
+``
+docker exec -it docker-swarm-manager sh
+``
+
+- docker swarm init
+
+``
+docker swarm init
+``
+
+- worker node join
+
+``
+docker swarm join --token ~~~ ~~~(ip for tcp)
+``
+
+- swarm node 목록 확인
+
+``
+docker node ls
+``
+
+- docker service 객체 생성(*Swarm 스케쥴러의 Task 배치 및 실행까지)
+
+``
+docker service create --name docker-service-nginx --replicas 3 nginx
+``
+
+- docker service 객체 목록 확인(Manager Node)
+
+``
+docker service ls
+``
+
+- docker service의 desired state에 대한 세부 내역 확인(Manager Node)
+
+``
+docker service ps docker-service-nginx
+``
+
+- 각 task(컨테이너) 상태 잠시 멈춤(Manager Node)
+
+``
+docker service scale nginx-service=0
+``
+
 > etc
 
 - 도커 명령어 실행을 위한 패키지(최신 라이브러리) 업데이트 및 docker 라이브러리 추가
