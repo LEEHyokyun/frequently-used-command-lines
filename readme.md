@@ -209,6 +209,12 @@ docker exec --workdir /opt/kafka/bin/ -it cloud-native-msa-kafka sh
 docker network create my-bridge-network
 ``
 
+- 서로 다른 도커 엔진에서의 컨테이너 간 통신을 위한 오버레이 네트워크 생성
+
+``
+docker network create --driver overlay docker-service-overlay
+``
+
 > 컨테이너 환경 분석 및 확인
 
 - 도커 컨테이너 환경 분석 및 확인
